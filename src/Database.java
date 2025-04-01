@@ -13,6 +13,16 @@ public class Database {
         Database.add(e);
     }
 
+    private static Entity get(int id){
+        for(Entity entity : entities){
+            if(entity.id == id)
+                return entity;
+        }
+        return null;
+    }
+    public static Entity callGet(int id){
+        return Database.get(id);
+    }
 
 
 }
