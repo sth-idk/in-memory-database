@@ -42,11 +42,12 @@ public class Main {
         System.out.println();
         System.out.println("#### Test delete method ####");
 
-        int jamshidId = humans[1].id;
-        Database.callDelete(jamshidId);
+
+        int akbarId = humans[2].id;
+        Database.callDelete(akbarId);
 
         try {
-            Human jamshid = (Human) Database.callGet(jamshidId);
+            Human akbar = (Human) Database.callGet(akbarId);
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
         }

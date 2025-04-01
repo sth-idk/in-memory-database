@@ -34,13 +34,12 @@ public class Database {
 
     private static void delete(int id){
         for(Entity entity : entities){
-            if(entity.id == id) {
+            if(entity.id == id)
                 entities.remove(entity);
-                toCheck = false;
-            }
-        }
-            if(toCheck)
+            else
                 throw new EntityNotFoundException(id);
+
+        }
     }
 
     public static void callDelete(int id){
