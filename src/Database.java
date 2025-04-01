@@ -24,5 +24,15 @@ public class Database {
         return Database.get(id);
     }
 
+    private static void delete(int id){
+        for(Entity entity : entities){
+            if(entity.id == id)
+                entities.remove(entity);
+        }
+    }
+    public static void callDelete(int id){
+        Database.delete(id);
+    }
+
 
 }
