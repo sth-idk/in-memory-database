@@ -34,5 +34,19 @@ public class Database {
         Database.delete(id);
     }
 
+    private static void update(Entity e){
+        boolean toCheck = true;
+        for(Entity entity : entities){
+            if(entity.id == e.id){
+                int index = entities.indexOf(entity);
+                entities.set(index , e);
+                toCheck = false;
+            }
+        }
+    }
+    public static void callUpdate(Entity e){
+        Database.update(e);
+    }
+
 
 }
