@@ -9,5 +9,13 @@ public class Human extends Entity {
         this.name = name;
     }
 
+    @Override
+    public Human copy() {
+        Human copyHuman = new Human(name);
+        copyHuman.id = id;
+
+        return copyHuman;
+    }
+
 
 }
