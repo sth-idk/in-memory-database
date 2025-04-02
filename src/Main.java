@@ -6,51 +6,16 @@ import example.Human;
 public class Main {
     public static void main(String[] args) {
 
-        Human[] humans = {
-                new Human("Gholi"),
-                new Human("Jamshid"),
-                new Human("Akbar"),
-        };
+        Human ali = new Human("Ali");
+        Human aliCopy = ali.copy();
 
-        System.out.println("#### Test add method ####");
-
-        for (Human h : humans) {
-            System.out.println("Adding " + h.name + " to the database.");
-            Database.callAdd(h);
-        }
-
-        for (Human h : humans) {
-            System.out.println("Id of \"" + h.name + "\" is " + h.id + ".");
-        }
-
+        System.out.println("ali's name: " + ali.name);
+        System.out.println("aliCopy's name: " + aliCopy.name);
         System.out.println();
-        System.out.println("#### Test get method ####");
 
-        int gholiId = humans[0].id;
-        Human gholi = (Human) Database.callGet(gholiId);
+        ali.name = "Ali Hosseini";
 
-        System.out.println("successfully got " + gholi.name + " from the database.");
-
-        System.out.println();
-        System.out.println("#### Test update method ####");
-
-        gholi.name = "Gholi Mohammadi";
-        Database.callUpdate(gholi);
-
-        Human gholiAgain = (Human) Database.callGet(gholiId);
-        System.out.println("Updated name: \"" + gholiAgain.name + "\".");
-
-        System.out.println();
-        System.out.println("#### Test delete method ####");
-
-
-        int akbarId = humans[2].id;
-        Database.callDelete(akbarId);
-
-        try {
-            Human akbar = (Human) Database.callGet(akbarId);
-        } catch (EntityNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        System.out.println("ali's name: " + ali.name);
+        System.out.println("aliCopy's name: " + aliCopy.name);
     }
 }
