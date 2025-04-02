@@ -8,8 +8,8 @@ public class Database {
     static boolean toCheck = true;
 
     private static void add(Entity e){
-        entities.add(e);
-        e.id = entities.size();
+        entities.add(e.copy());
+        e.copy().id = entities.size();
     }
     public static void callAdd(Human e){
         Database.add(e);
