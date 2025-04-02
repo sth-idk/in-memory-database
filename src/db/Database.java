@@ -9,7 +9,7 @@ public class Database {
 
     private static void add(Entity e){
         entities.add(e.copy());
-        e.copy().id = entities.size();
+        e.id = entities.size();
     }
     public static void callAdd(Human e){
         Database.add(e);
@@ -52,7 +52,7 @@ public class Database {
         for(Entity entity : entities){
             if(entity.id == e.id){
                 int index = entities.indexOf(entity);
-                entities.set(index , e);
+                entities.set(index , e.copy());
                 toCheck = false;
             }
         }
