@@ -19,7 +19,7 @@ public class Database {
         for(Entity entity : entities){
             if(entity.id == id) {
                 toCheck = false;
-                return entity;
+                return entity.copy();
             }
         }
         if(toCheck){
