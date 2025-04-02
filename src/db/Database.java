@@ -9,7 +9,7 @@ public class Database {
 
     private static void add(Entity e){
         entities.add(e.copy());
-        e.id = entities.size();
+        e.copy().id = entities.size();
     }
     public static void callAdd(Human e){
         Database.add(e);

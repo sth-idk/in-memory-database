@@ -6,16 +6,13 @@ import example.Human;
 public class Main {
     public static void main(String[] args) {
 
-        Human ali = new Human("Ali");
-        Human aliCopy = ali.copy();
+                Human ali = new Human("Ali");
+                Database.callAdd(ali);
 
-        System.out.println("ali's name: " + ali.name);
-        System.out.println("aliCopy's name: " + aliCopy.name);
-        System.out.println();
+                ali.name = "Ali Hosseini";
 
-        ali.name = "Ali Hosseini";
+                Human aliFromTheDatabase = (Human) Database.callGet(ali.id);
 
-        System.out.println("ali's name: " + ali.name);
-        System.out.println("aliCopy's name: " + aliCopy.name);
+                System.out.println("ali's name in the database: " + aliFromTheDatabase.name);
     }
 }
