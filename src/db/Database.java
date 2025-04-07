@@ -8,20 +8,29 @@ public class Database implements Cloneable {
     private static boolean toCheck = true;
 
 
-    private static void add(Entity e){
-        entities.add(e);
-        e.id = entities.size();
+    private static void add(Entity e) throws CloneNotSupportedException{
+        try {
+            Entity entityCopy = e.clone();
+            e.id = entities.size();
+            entities.add(entityCopy);
+        }catch(CloneNotSupportedException er){
+            throw new AssertionError();
+        }
     }
-    public static void callAdd(Human e){
+    public static void callAdd(Human e) throws CloneNotSupportedException {
         Database.add(e);
     }
 
 
-    private static Entity get(int id){
+    private static Entity get(int id) throws CloneNotSupportedException {
         for(Entity entity : entities){
             if(entity.id == id) {
                 toCheck = false;
-                return entity;
+                try {
+                    return entity.clone();
+                }catch(CloneNotSupportedException e){
+                    throw new AssertionError();
+                }
             }
         }
         if(toCheck){
@@ -30,7 +39,7 @@ public class Database implements Cloneable {
         return null;
     }
 
-    public static Entity callGet(int id){
+    public static Entity callGet(int id) throws CloneNotSupportedException {
         return Database.get(id);
     }
 
@@ -53,7 +62,7 @@ public class Database implements Cloneable {
     private static void update(Entity e) throws CloneNotSupportedException {
             for (int i=0 ; i<entities.size() ; i++) {
                 if (entities.get(i).id == e.id) {
-                    entities.set(i, e);
+                    entities.set(i, e.clone());
                     toCheck = false;
                     break;
                 }
