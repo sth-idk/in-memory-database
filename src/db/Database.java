@@ -82,13 +82,6 @@ public class Database implements Cloneable {
     public static void callAdd(Human e){
         Database.add(e);
     }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        Database copy = (Database) super.clone();
-        copy.entities = (ArrayList<Entity>) this.entities.clone();
-        return copy;
-    }
     private static Entity get(int id){
         for(Entity entity : entities){
             if(entity.id == id) {
@@ -139,5 +132,3 @@ public class Database implements Cloneable {
     }
 }*/
 }
-
-
