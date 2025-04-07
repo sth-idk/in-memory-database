@@ -2,7 +2,7 @@ package example;
 
 import db.Entity;
 
-public class Human extends Entity {
+public class Human extends Entity implements Cloneable {
     public String name;
 
     public Human(String name) {
@@ -10,12 +10,10 @@ public class Human extends Entity {
     }
 
     @Override
-    public Human copy() {
-        Human copyHuman = new Human(name);
-        copyHuman.id = id;
+    public Human clone() throws CloneNotSupportedException {
+          Human humanCopy = (Human) super.clone();
+          humanCopy.name = this.name;
+          return humanCopy;
 
-        return copyHuman;
     }
-
-
 }

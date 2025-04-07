@@ -3,23 +3,25 @@ import example.Human;
 
 import java.util.ArrayList;
 
-public class Database {
+public class Database implements Cloneable {
     private static ArrayList<Entity> entities = new ArrayList<Entity>();
-    static boolean toCheck = true;
+    private static boolean toCheck = true;
+
 
     private static void add(Entity e){
-        entities.add(e.copy());
-        e.copy().id = entities.size();
+        entities.add(e);
+        e.id = entities.size();
     }
     public static void callAdd(Human e){
         Database.add(e);
     }
 
+
     private static Entity get(int id){
         for(Entity entity : entities){
             if(entity.id == id) {
                 toCheck = false;
-                return entity.copy();
+                return entity;
             }
         }
         if(toCheck){
@@ -48,19 +50,19 @@ public class Database {
     }
 
 
-    private static void update(Entity e){
-        for(Entity entity : entities){
-            if(entity.id == e.id){
-                int index = entities.indexOf(entity);
-                entities.set(index , e.copy());
-                toCheck = false;
+    private static void update(Entity e) throws CloneNotSupportedException {
+            for (int i=0 ; i<entities.size() ; i++) {
+                if (entities.get(i).id == e.id) {
+                    entities.set(i, e);
+                    toCheck = false;
+                    break;
+                }
             }
-        }
-        if(toCheck)
-            throw new EntityNotFoundException();
+            if (toCheck)
+                throw new EntityNotFoundException();
     }
 
-    public static void callUpdate(Entity e){
+    public static void callUpdate(Entity e) throws CloneNotSupportedException {
         Database.update(e);
     }
 }

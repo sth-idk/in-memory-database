@@ -4,7 +4,7 @@ import db.EntityNotFoundException;
 import example.Human;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
                 Human ali = new Human("Ali");
                 Database.callAdd(ali);
