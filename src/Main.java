@@ -1,9 +1,28 @@
-import example.Human;
+
 import db.Database;
 import db.Entity;
 import db.EntityNotFoundException;
+import example.Human;
+
 
 public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+      
+      //test code of the second step
+
+                Human ali = new Human("Ali");
+                Database.callAdd(ali);
+
+                ali.name = "Ali Hosseini";
+
+                Human aliFromTheDatabase = (Human) Database.callGet(ali.id);
+
+                System.out.println("ali's name in the database: " + aliFromTheDatabase.name);
+      
+      
+/////////////////////////////
+//test code of the first step
+/*public class Main {
     public static void main(String[] args) {
         Human[] humans = {
                 new Human("Gholi"),
@@ -50,6 +69,6 @@ public class Main {
             Human akbar = (Human) Database.callGet(akbarId);
         } catch (EntityNotFoundException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
     }
 }
