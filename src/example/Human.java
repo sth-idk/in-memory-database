@@ -12,9 +12,13 @@ public class Human extends Entity implements Cloneable {
     //with the clone() method
     @Override
     public Human clone() throws CloneNotSupportedException {
-          Human humanCopy = (Human) super.clone();
-          humanCopy.name = this.name;
-          return humanCopy;
+        try {
+            Human humanCopy = (Human) super.clone();
+            humanCopy.name = this.name;
+            return humanCopy;
+        }catch(CloneNotSupportedException e){
+            throw new AssertionError();
+        }
     }
 
 
