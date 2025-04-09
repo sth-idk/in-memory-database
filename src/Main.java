@@ -1,6 +1,4 @@
 import db.Database;
-import db.Entity;
-import db.EntityNotFoundException;
 import example.Human;
 
 public class Main {

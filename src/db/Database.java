@@ -1,4 +1,5 @@
 package db;
+import db.exception.EntityNotFoundException;
 import example.Human;
 
 import java.util.ArrayList;
