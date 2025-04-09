@@ -75,6 +75,11 @@ public class Database implements Cloneable {
     }
 
 
+    public static void registerValidator(int entityCode, Validator validator) {
+        // Code for registering new validators
+    }
+
+
 
 
     //with the copy() method
