@@ -5,6 +5,7 @@ import db.Entity;
 public class Human extends Entity implements Cloneable {
     public String name;
     public int age;
+    public static final int HUMAN_ENTITY_CODE = 14;
 
     public Human(String name , int age) {
         this.name = name;
@@ -22,7 +23,10 @@ public class Human extends Entity implements Cloneable {
         }catch(CloneNotSupportedException e){
             throw new AssertionError();
         }
-    }.
+    }
+
+
+
 
 
 
