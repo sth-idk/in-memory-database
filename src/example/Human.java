@@ -4,9 +4,11 @@ import db.Entity;
 
 public class Human extends Entity implements Cloneable {
     public String name;
+    public int age;
 
-    public Human(String name) {
+    public Human(String name , int age) {
         this.name = name;
+        this.age = age;
     }
 
     //with the clone() method
@@ -15,17 +17,19 @@ public class Human extends Entity implements Cloneable {
         try {
             Human humanCopy = (Human) super.clone();
             humanCopy.name = this.name;
+            humanCopy.age = this.age;
             return humanCopy;
         }catch(CloneNotSupportedException e){
             throw new AssertionError();
         }
-    }
+    }.
+
 
 
     //with the copy() method
     /*@Override
     public Human copy() {
-        Human copyHuman = new Human(name);
+        Human copyHuman = new Human(name , age);
         copyHuman.id = id;
 
         return copyHuman;
