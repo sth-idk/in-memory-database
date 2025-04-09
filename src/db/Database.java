@@ -3,10 +3,12 @@ import db.exception.EntityNotFoundException;
 import example.Human;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Database implements Cloneable {
     private static ArrayList<Entity> entities = new ArrayList<Entity>();
     private static boolean toCheck = true;
+    private static HashMap<Integer, Validator> validators;
 
     //with the clone() method
     private static void add(Entity e) throws CloneNotSupportedException{
