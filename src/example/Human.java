@@ -25,9 +25,10 @@ public class Human extends Entity implements Cloneable {
         }
     }
 
-
-
-
+    @Override
+    public int getEntityCode() {
+        return HUMAN_ENTITY_CODE;
+    }
 
 
     //with the copy() method
