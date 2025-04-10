@@ -13,6 +13,10 @@ public class Database implements Cloneable {
 
     //with the clone() method
     private static void add(Entity e) throws CloneNotSupportedException{
+
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
         try {
             Entity entityCopy = e.clone();
             e.id = entities.size();
@@ -60,6 +64,10 @@ public class Database implements Cloneable {
 
 
     private static void update(Entity e) throws CloneNotSupportedException {
+
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
             for (int i=0 ; i<entities.size() ; i++) {
                 if (entities.get(i).id == e.id) {
                     entities.set(i, e.clone());
