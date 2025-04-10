@@ -5,4 +5,5 @@ public interface Trackable {
     Date getCreationDate();
 
     void setLastModificationDate(Date date);
+    Date getLastModificationDate();
 }
