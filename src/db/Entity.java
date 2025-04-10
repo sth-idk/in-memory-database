@@ -9,6 +9,8 @@ public abstract class Entity implements Cloneable {
             return (Entity) super.clone();
         }
 
+        public abstract int getEntityCode();
+
         //with the copy() method
         //public abstract Entity copy();
 }

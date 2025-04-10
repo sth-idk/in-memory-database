@@ -1,23 +1,34 @@
 
 import db.Database;
-import db.Entity;
-import db.EntityNotFoundException;
 import example.Human;
+import db.exception.InvalidEnitityException;
+import example.HumanValidator;
 
 
 public class Main {
-    public static void main(String[] args) throws CloneNotSupportedException {
+
+    public static void main(String[] args) throws InvalidEnitityException, CloneNotSupportedException {
       
-      //test code of the second step
+      //test code of the third step
+        Database.registerValidator(Human.HUMAN_ENTITY_CODE, new HumanValidator());
 
-                Human ali = new Human("Ali");
-                Database.callAdd(ali);
+        Human ali = new Human("Ali", -10);
+        Database.callAdd(ali);
 
-                ali.name = "Ali Hosseini";
+    
+      
+      
+/////////////////////////////
+//test code of the second step
+/*public static void main(String[] args) throws CloneNotSupportedException {
+    Human ali = new Human("Ali");
+    Database.callAdd(ali);
 
-                Human aliFromTheDatabase = (Human) Database.callGet(ali.id);
+    ali.name = "Ali Hosseini";
 
-                System.out.println("ali's name in the database: " + aliFromTheDatabase.name);
+    Human aliFromTheDatabase = (Human) Database.callGet(ali.id);
+
+    System.out.println("ali's name in the database: " + aliFromTheDatabase.name);*/
       
       
 /////////////////////////////

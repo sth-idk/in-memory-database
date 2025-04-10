@@ -1,14 +1,22 @@
 package db;
+import db.exception.EntityNotFoundException;
 import example.Human;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Database implements Cloneable {
     private static ArrayList<Entity> entities = new ArrayList<Entity>();
     private static boolean toCheck = true;
+    private static HashMap<Integer, Validator> validators = new HashMap<>();
+
 
     //with the clone() method
     private static void add(Entity e) throws CloneNotSupportedException{
+
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
         try {
             Entity entityCopy = e.clone();
             e.id = entities.size();
@@ -56,6 +64,10 @@ public class Database implements Cloneable {
 
 
     private static void update(Entity e) throws CloneNotSupportedException {
+
+        Validator validator = validators.get(e.getEntityCode());
+        validator.validate(e);
+
             for (int i=0 ; i<entities.size() ; i++) {
                 if (entities.get(i).id == e.id) {
                     entities.set(i, e.clone());
@@ -69,6 +81,17 @@ public class Database implements Cloneable {
 
     public static void callUpdate(Entity e) throws CloneNotSupportedException {
         Database.update(e);
+    }
+
+
+    public static void registerValidator(int entityCode, Validator validator) {
+
+        if (validators.containsKey(entityCode))
+            throw new IllegalArgumentException("Validator for entityCode " + entityCode + " is already registered.");
+        else {
+            validators.put(entityCode, validator);
+        }
+
     }
 
 
