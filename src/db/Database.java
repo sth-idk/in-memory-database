@@ -8,7 +8,8 @@ import java.util.HashMap;
 public class Database implements Cloneable {
     private static ArrayList<Entity> entities = new ArrayList<Entity>();
     private static boolean toCheck = true;
-    private static HashMap<Integer, Validator> validators;
+    private static HashMap<Integer, Validator> validators = new HashMap<>();
+
 
     //with the clone() method
     private static void add(Entity e) throws CloneNotSupportedException{
@@ -76,7 +77,13 @@ public class Database implements Cloneable {
 
 
     public static void registerValidator(int entityCode, Validator validator) {
-        // Code for registering new validators
+
+        if (validators.containsKey(entityCode))
+            throw new IllegalArgumentException("Validator for entityCode " + entityCode + " is already registered.");
+        else {
+            validators.put(entityCode, validator);
+        }
+
     }
 
 

@@ -13,10 +13,11 @@ public class HumanValidator implements Validator {
                 throw new IllegalArgumentException();
             else {
                 Human human = (Human) entity;
-                if( ((Human) entity).name == null ){
+                if (((Human) entity).name == null) {
                     throw new InvalidEnitityException("name cannot be null.");
                 }
-                if( ((Human) entity).age < 0 ){
+
+                if (((Human) entity).age < 0) {
                     throw new InvalidEnitityException("age cannot be negative.");
                 }
             }
