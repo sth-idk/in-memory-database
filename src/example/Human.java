@@ -2,6 +2,7 @@ package example;
 
 import db.Entity;
 
+
 public class Human extends Entity implements Cloneable {
     public String name;
     public int age;

@@ -1,5 +1,4 @@
 package db;
-
 public abstract class Entity implements Cloneable {
 
         public int id;
