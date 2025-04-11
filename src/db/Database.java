@@ -75,6 +75,10 @@ public class Database implements Cloneable {
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
 
+        if (e instanceof Trackable) {
+            ((Trackable) e).setLastModificationDate(new Date());
+        }
+
             for (int i=0 ; i<entities.size() ; i++) {
                 if (entities.get(i).id == e.id) {
                     entities.set(i, e.clone());
