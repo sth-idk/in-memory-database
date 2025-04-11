@@ -4,15 +4,23 @@ import example.Document;
 import example.Human;
 import db.exception.InvalidEnitityException;
 import example.HumanValidator;
+import todo.entity.Task;
+import todo.service.StepService;
+import todo.service.TaskService;
+
+import java.util.Date;
+import java.util.Scanner;
 
 
 public class Main {
 
     public static void main(String[] args) throws InvalidEnitityException, CloneNotSupportedException {
+
+
       
       
         //test code of fourth step
-        Document doc = new Document("Eid Eid Eid");
+        /*Document doc = new Document("Eid Eid Eid");
         doc = (Document) Database.callAdd(doc);
 
         System.out.println("Document added");
@@ -38,7 +46,7 @@ public class Main {
         System.out.println("id: " + updated.id);
         System.out.println("content: " + updated.content);
         System.out.println("creation date: " + updated.getCreationDate());
-        System.out.println("last modification date: " + updated.getLastModificationDate());
+        System.out.println("last modification date: " + updated.getLastModificationDate());*/
       
       
       
