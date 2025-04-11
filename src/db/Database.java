@@ -2,8 +2,7 @@ package db;
 
 
 import db.exception.EntityNotFoundException;
-import example.Document;
-import example.Human;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -110,6 +109,18 @@ public class Database implements Cloneable {
         else {
             validators.put(entityCode, validator);
         }
+    }
+
+    public static ArrayList<Entity> getAll(int entityCode) {
+        ArrayList<Entity> wantedEntities = new ArrayList<>();
+
+        for (Entity entity : entities) {
+            if (entity.getEntityCode() == entityCode) {
+                wantedEntities.add(entity.copy());
+            }
+        }
+
+        return wantedEntities;
     }
 
 
