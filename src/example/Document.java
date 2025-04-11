@@ -6,6 +6,8 @@ import db.Trackable;
 import java.util.Date;
 
 public class Document extends Entity implements Trackable {
+    private Date creationDate;
+    private Date lastModificationDate;
     public String content;
 
     public Document(String content){
@@ -19,22 +21,22 @@ public class Document extends Entity implements Trackable {
 
     @Override
     public void setCreationDate(Date date) {
-
+        this.creationDate = creationDate;
     }
 
     @Override
     public Date getCreationDate() {
-        return null;
+        return creationDate;
     }
 
     @Override
     public void setLastModificationDate(Date date) {
-
+        this.lastModificationDate = lastModificationDate;
     }
 
     @Override
     public Date getLastModificationDate() {
-        return null;
+        return lastModificationDate;
     }
 
 
