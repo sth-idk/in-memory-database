@@ -21,23 +21,35 @@ public class Document extends Entity implements Trackable {
 
     @Override
     public void setCreationDate(Date date) {
-        this.creationDate = creationDate;
+        this.creationDate = date;
     }
 
     @Override
     public Date getCreationDate() {
-        return creationDate;
+        return this.creationDate;
     }
 
     @Override
     public void setLastModificationDate(Date date) {
-        this.lastModificationDate = lastModificationDate;
+        this.lastModificationDate = date;
     }
 
     @Override
     public Date getLastModificationDate() {
-        return lastModificationDate;
+        return this.lastModificationDate;
     }
 
+    @Override
+    public Document copy() {
+        Document documentCopy = new Document(this.content);
+        documentCopy.id = this.id;
 
+        if (this.creationDate != null)
+            documentCopy.creationDate = new Date(this.creationDate.getTime());
+
+        if (this.lastModificationDate != null)
+            documentCopy.lastModificationDate = new Date(this.lastModificationDate.getTime());
+
+        return documentCopy;
+    }
 }

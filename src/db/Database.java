@@ -2,10 +2,10 @@ package db;
 import db.exception.EntityNotFoundException;
 import example.Document;
 import example.Human;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
 
 public class Database implements Cloneable {
     private static ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -13,32 +13,126 @@ public class Database implements Cloneable {
     private static HashMap<Integer, Validator> validators = new HashMap<>();
 
 
-    //with the clone() method
-    private static void add(Entity e) throws CloneNotSupportedException{
-        if(validators != null) {
+    //with the copy() method
+    private static Entity add(Entity e) {
+        if (validators != null) {
             Validator validator = validators.get(e.getEntityCode());
-
             if (validator != null)
                 validator.validate(e);
         }
 
 
-            Entity entityCopy = e.clone();
+        e.id = entities.size() + 1;
+        Entity copy = e.copy();
 
-
-        if(entityCopy instanceof Trackable) {
+        if (copy instanceof Trackable) {
             Date now = new Date();
-            ((Trackable) e).setCreationDate(now);
-            ((Trackable) e).setLastModificationDate(now);
+            ((Trackable) copy).setCreationDate(now);
+            ((Trackable) copy).setLastModificationDate(now);
         }
 
+        entities.add(copy);
 
-            e.id = entities.size();
-            entities.add(entityCopy);
+        return copy;
     }
-    public static void callAdd(Entity e) throws CloneNotSupportedException {
+
+
+    public static Entity callAdd(Entity e) {
+        return Database.add(e);
+    }
+
+
+
+    private static Entity get(int id){
+        for(Entity entity : entities){
+            if(entity.id == id) {
+                toCheck = false;
+                return entity.copy();
+            }
+        }
+        if(toCheck){
+            throw new EntityNotFoundException(id);
+        }
+        return null;
+    }
+
+    public static Entity callGet(int id){
+        return Database.get(id);
+    }
+
+
+
+    private static void delete(int id){
+        for(Entity entity : entities){
+            if(entity.id == id)
+                entities.remove(entity);
+            else
+                throw new EntityNotFoundException(id);
+
+        }
+    }
+
+    public static void callDelete(int id){
+        Database.delete(id);
+    }
+
+
+
+    private static void update(Entity e) {
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).id == e.id) {
+                Entity copy = e.copy();
+
+                if (copy instanceof Trackable) {
+                    ((Trackable) copy).setLastModificationDate(new Date());
+                    ((Trackable) copy).setCreationDate(((Trackable) entities.get(i)).getCreationDate());
+                }
+
+                entities.set(i, copy);
+                toCheck = false;
+                break;
+            }
+        }
+        if (toCheck)
+            throw new EntityNotFoundException();
+    }
+
+    public static void callUpdate(Entity e){
+        Database.update(e);
+    }
+
+
+
+
+    //with the clone() method
+    /*private static void add(Entity e) throws CloneNotSupportedException{
+        if (validators != null) {
+            Validator validator = validators.get(e.getEntityCode());
+            if (validator != null)
+                validator.validate(e);
+        }
+
+        e.id = entities.size();
+
+        Entity entityCopy = e.clone();
+
+        if (entityCopy instanceof Trackable) {
+            Date now = new Date();
+            ((Trackable) entityCopy).setCreationDate(now);
+            ((Trackable) entityCopy).setLastModificationDate(now);
+        }
+
+        entities.add(entityCopy);
+
+
+    }
+
+
+    public static Entity callAdd(Entity e) throws CloneNotSupportedException {
         Database.add(e);
+        return Database.callGet(e.id);
     }
+
 
 
     private static Entity get(int id) throws CloneNotSupportedException {
@@ -75,8 +169,7 @@ public class Database implements Cloneable {
 
 
     private static void update(Entity e) throws CloneNotSupportedException {
-
-        if (validators != null) {
+        if(validators != null) {
             Validator validator = validators.get(e.getEntityCode());
 
             if (validator != null)
@@ -87,18 +180,18 @@ public class Database implements Cloneable {
             if (entities.get(i).id == e.id) {
                 Entity entityCopy = e.clone();
 
-                if (e instanceof Trackable) {
-                    ((Trackable) e).setLastModificationDate(new Date());
+                if (entityCopy instanceof Trackable) {
+                    ((Trackable) entityCopy).setLastModificationDate(new Date());
                 }
 
-                entities.set(i, e.clone());
+                entities.set(i, entityCopy);
                 toCheck = false;
-                break;
+                return;
             }
-
-            if (toCheck)
-                throw new EntityNotFoundException();
         }
+
+        if (toCheck)
+            throw new EntityNotFoundException();
     }
 
     public static void callUpdate(Entity e) throws CloneNotSupportedException {
@@ -114,75 +207,7 @@ public class Database implements Cloneable {
             validators.put(entityCode, validator);
         }
 
-    }
-
-
-
-
-    //with the copy() method
-    /*private static void add(Entity e){
-        entities.add(e.copy());
-        e.copy().id = entities.size();
-    }
-    public static void callAdd(Human e){
-        Database.add(e);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        Database copy = (Database) super.clone();
-        copy.entities = (ArrayList<Entity>) this.entities.clone();
-        return copy;
-    }
-    private static Entity get(int id){
-        for(Entity entity : entities){
-            if(entity.id == id) {
-                toCheck = false;
-                return entity.copy();
-            }
-        }
-        if(toCheck){
-            throw new EntityNotFoundException(id);
-        }
-        return null;
-    }
-
-    public static Entity callGet(int id){
-        return Database.get(id);
-    }
-
-
-    private static void delete(int id){
-        for(Entity entity : entities){
-            if(entity.id == id)
-                entities.remove(entity);
-            else
-                throw new EntityNotFoundException(id);
-
-        }
-    }
-
-    public static void callDelete(int id){
-        Database.delete(id);
-    }
-
-
-    private static void update(Entity e){
-        for(Entity entity : entities){
-            if(entity.id == e.id){
-                int index = entities.indexOf(entity);
-                entities.set(index , e.copy());
-                toCheck = false;
-            }
-        }
-        if(toCheck)
-            throw new EntityNotFoundException();
-    }
-
-    public static void callUpdate(Entity e){
-        Database.update(e);
-    }
-}*/
+    }*/
 }
 
 

@@ -12,8 +12,24 @@ public class Human extends Entity implements Cloneable {
         this.age = age;
     }
 
-    //with the clone() method
+
     @Override
+    public int getEntityCode() {
+        return HUMAN_ENTITY_CODE;
+    }
+
+
+    //with the copy() method
+    @Override
+    public Human copy() {
+        Human copyHuman = new Human(name , age);
+        copyHuman.id = id;
+
+        return copyHuman;
+    }
+
+    //with the clone() method
+    /*@Override
     public Human clone() throws CloneNotSupportedException {
         try {
             Human humanCopy = (Human) super.clone();
@@ -23,20 +39,5 @@ public class Human extends Entity implements Cloneable {
         }catch(CloneNotSupportedException e){
             throw new AssertionError();
         }
-    }
-
-    @Override
-    public int getEntityCode() {
-        return HUMAN_ENTITY_CODE;
-    }
-
-
-    //with the copy() method
-    /*@Override
-    public Human copy() {
-        Human copyHuman = new Human(name , age);
-        copyHuman.id = id;
-
-        return copyHuman;
     }*/
 }
