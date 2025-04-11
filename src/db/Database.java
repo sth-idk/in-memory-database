@@ -138,6 +138,7 @@ public class Database implements Cloneable {
 
 
     private static Entity get(int id) throws CloneNotSupportedException {
+
         for(Entity entity : entities){
             if(entity.id == id) {
                 toCheck = false;
@@ -211,5 +212,3 @@ public class Database implements Cloneable {
 
     }*/
 }
-
-
