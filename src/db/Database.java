@@ -15,23 +15,26 @@ public class Database implements Cloneable {
 
     //with the clone() method
     private static void add(Entity e) throws CloneNotSupportedException{
+        if(validators != null) {
+            Validator validator = validators.get(e.getEntityCode());
 
-        Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+            if (validator != null)
+                validator.validate(e);
+        }
 
-        if(e instanceof Trackable) {
+
+            Entity entityCopy = e.clone();
+
+
+        if(entityCopy instanceof Trackable) {
             Date now = new Date();
             ((Trackable) e).setCreationDate(now);
             ((Trackable) e).setLastModificationDate(now);
         }
 
-        try {
-            Entity entityCopy = e.clone();
+
             e.id = entities.size();
             entities.add(entityCopy);
-        }catch(CloneNotSupportedException er){
-            throw new AssertionError();
-        }
     }
     public static void callAdd(Entity e) throws CloneNotSupportedException {
         Database.add(e);
@@ -73,22 +76,29 @@ public class Database implements Cloneable {
 
     private static void update(Entity e) throws CloneNotSupportedException {
 
-        Validator validator = validators.get(e.getEntityCode());
-        validator.validate(e);
+        if (validators != null) {
+            Validator validator = validators.get(e.getEntityCode());
 
-        if (e instanceof Trackable) {
-            ((Trackable) e).setLastModificationDate(new Date());
+            if (validator != null)
+                validator.validate(e);
         }
 
-            for (int i=0 ; i<entities.size() ; i++) {
-                if (entities.get(i).id == e.id) {
-                    entities.set(i, e.clone());
-                    toCheck = false;
-                    break;
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).id == e.id) {
+                Entity entityCopy = e.clone();
+
+                if (e instanceof Trackable) {
+                    ((Trackable) e).setLastModificationDate(new Date());
                 }
+
+                entities.set(i, e.clone());
+                toCheck = false;
+                break;
             }
+
             if (toCheck)
                 throw new EntityNotFoundException();
+        }
     }
 
     public static void callUpdate(Entity e) throws CloneNotSupportedException {
