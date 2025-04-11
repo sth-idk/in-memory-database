@@ -16,6 +16,157 @@ public class Main {
 
     public static void main(String[] args) throws InvalidEnitityException, CloneNotSupportedException {
 
+        //test code of fifth step
+         Scanner scanner = new Scanner(System.in);
+        String command = scanner.nextLine();
+        Database.registerValidator(Task.HUMAN_ENTITY_CODE, new TaskValidator());
+        Database.registerValidator(0, new TaskValidator()); // code 0 for Tasks
+        Database.registerValidator(1, new StepValidator()); // code 1 for Steps
+
+        while (true) {
+            try {
+                switch (command.toLowerCase()) {
+
+                    case "add task": {
+                        System.out.print("title: ");
+                        String title = scanner.nextLine();
+                        System.out.print("description: ");
+                        String description = scanner.nextLine();
+                        System.out.print("due date (yyyy-mm-dd): ");
+                        
+                        System.out.println("Task saved successfully.");
+                        break;
+                    }
+
+                    case "add step": {
+                        System.out.print("task ID: ");
+                        int id = scanner.nextInt();
+                        System.out.print("step title: ");
+                        String title = scanner.nextLine();
+                        System.out.println("Step saved successfully.");
+                        break;
+                    }
+
+                    case "delete": {
+                        System.out.print("Enter entity ID to delete: ");
+                        int id = scanner.nextInt();
+                        Database.callDelete(id);
+                        System.out.println("Entity with ID=" + id + " successfully deleted.");
+                        break;
+                    }
+
+                    case "update task": {
+                        System.out.print("task ID: ");
+                        int id = scanner.nextInt();
+                        Task task = (Task) Database.callGet(id);
+                        System.out.print("field: ");
+                        String field = scanner.nextLine();
+                        System.out.print("new title: ");
+                        String newTitle = scanner.nextLine();
+                        System.out.print("new description: ");
+                        String newDescription = scanner.nextLine();
+                        System.out.print("new due date (yyyy-mm-dd): ");
+                        String newDueDate = scanner.nextLine();
+
+                        String oldTitle = task.title;
+                        task.title = newTitle;
+                        task.description = newDescription;
+                        
+
+                        Database.callUpdate(task);
+
+                        System.out.println("Successfully updated the task.");
+                        System.out.println("field: " + field);
+                        System.out.println("old value: " + oldTitle);
+                        System.out.println("new value: " + newTitle);
+                        System.out.println("modification date: " + task.getLastModificationDate());
+                        break;
+                    }
+
+                    case "update step": {
+                        System.out.print("step ID: ");
+                        int id = scanner.nextInt();
+                        Step step = (Step) Database.callGet(id);
+                        System.out.print("field: ");
+                        String field = scanner.nextLine();
+                        System.out.print("new title: ");
+                        String newTitle = scanner.nextLine();
+                        String oldTitle = step.title;
+                        step.title = newTitle;
+
+                        Database.callUpdate(step);
+
+                        System.out.println("Successfully updated the step.");
+                        System.out.println("field: " + field);
+                        System.out.println("old value: " + oldTitle);
+                        System.out.println("new value: " + newTitle);
+                        break;
+
+
+                    }
+
+                    case "get task-by-id": {
+                        System.out.print("task ID: ");
+                        int id = scanner.nextInt();
+                        Task task = (Task) Database.callGet(id);
+
+                        System.out.println("ID: " + task.id);
+                        System.out.println("title: " + task.title);
+                        System.out.println("due date: " + task.dueDate);
+                        System.out.println("status: " + task.status);
+                        System.out.println("steps:");
+                        for (Entity entity : Database.getAll(0)) {
+                            if (entity instanceof Step) {
+                                Step step = (Step) entity;
+                                if (step.taskRef == task.id) {
+                                    System.out.println("    + " + step.title + ":");
+                                    System.out.println("ID: " + step.id);
+                                    System.out.println("status: " + step.status);
+                                }
+                            }
+                        }
+                        break;
+                    }
+
+                    case "get all-tasks": {
+                        for (Entity entity : Database.getAll(0)) {
+                                Task task = (Task) entity;
+                                System.out.println();
+                                System.out.println("ID: " + task.id);
+                                System.out.println("title: " + task.title);
+                                System.out.println("due date: " + task.dueDate);
+                                System.out.println("status: " + task.status);
+                                System.out.println("steps:");
+                                for (Entity stepEntity : Database.getAll(0)) {
+                                    Step step = null;
+                                    System.out.println("    + " + step.title + " ID: " + step.id + " Status: " + step.status);
+                                }
+                        }
+                        break;
+                    }
+
+                    case "get incomplete-tasks": {
+                        for (Entity entity : Database.getAll(0)) {
+                            Task task = null;
+                            if (task.status != Task.Status.Completed) {
+                                System.out.println("ID: " + task.id);
+                                System.out.println("Title: " + task.title);
+                                System.out.println("Due Date: " + task.dueDate);
+                                System.out.println("Status: " + task.status);
+                            }
+                        }
+                        break;
+                    }
+
+                    case "exit": {
+                        break;
+                    }
+                }
+                }catch(InvalidEnitityException | EntityNotFoundException e){
+                    System.out.println("Cannot process command.");
+                    System.out.println("Error: " + e.getMessage());
+                }
+
 
       
       
