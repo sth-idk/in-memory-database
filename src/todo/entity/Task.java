@@ -1,6 +1,10 @@
 package todo.entity;
 
-public class Task {
+import db.Entity;
+import db.Trackable;
+
+public class Task extends Entity implements Trackable {
+
     enum Status{
         NotStarted,
         InProgress,
