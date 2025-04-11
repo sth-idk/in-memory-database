@@ -8,13 +8,13 @@ import example.Document;
 public class Task extends Entity implements Trackable {
 
     public String title;
-    String description;
-    Date dueDate;
-    Status status;
+    public String description;
+    public Date dueDate;
+    public Status status;
     private Date creationDate;
     private Date LastModificationDate;
 
-    enum Status{
+    public enum Status{
         NotStarted,
         InProgress,
         Completed

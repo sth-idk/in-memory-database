@@ -4,7 +4,7 @@ import db.Entity;
 
 public class Step extends Entity {
     public String title;
-    Status status;
+    public Status status;
     public int taskRef;
 
     @Override
@@ -22,7 +22,7 @@ public class Step extends Entity {
         return copy;
     }
 
-    enum Status{
+    public enum Status{
         NotStarted,
         Completed
     }
