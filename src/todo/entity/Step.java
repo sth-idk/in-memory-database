@@ -9,7 +9,7 @@ public class Step extends Entity {
 
     @Override
     public int getEntityCode() {
-        return 0;
+        return 14;
     }
 
     @Override

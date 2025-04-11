@@ -22,7 +22,7 @@ public class Task extends Entity implements Trackable {
 
     @Override
     public int getEntityCode() {
-        return 0;
+        return 14;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Task extends Entity implements Trackable {
         copy.id = this.id;
         copy.title = this.title;
         copy.description = this.description;
-        copy.dueDate = (this.dueDate != null) ? new Date(this.dueDate.getTime()) : null;
+        copy.dueDate = new Date(this.dueDate.getTime());
         copy.status = this.status;
         return copy;
     }
