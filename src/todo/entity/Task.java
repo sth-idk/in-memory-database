@@ -3,10 +3,13 @@ package todo.entity;
 import db.Entity;
 import db.Trackable;
 
+import java.util.Date;
+
 public class Task extends Entity implements Trackable {
     String title;
     String description;
-    String dueDate;
+    Date dueDate;
+    String status;
     enum Status{
         NotStarted,
         InProgress,
