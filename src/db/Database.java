@@ -3,6 +3,7 @@ import db.exception.EntityNotFoundException;
 import example.Human;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Database implements Cloneable {
@@ -16,6 +17,12 @@ public class Database implements Cloneable {
 
         Validator validator = validators.get(e.getEntityCode());
         validator.validate(e);
+
+        if(e instanceof Trackable) {
+            Date now = new Date();
+            ((Trackable) e).setCreationDate(now);
+            ((Trackable) e).setLastModificationDate(now);
+        }
 
         try {
             Entity entityCopy = e.clone();
