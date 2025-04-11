@@ -3,9 +3,9 @@ package todo.entity;
 import db.Entity;
 
 public class Step extends Entity {
-    String title;
+    public String title;
     Status status;
-    int taskRef;
+    public int taskRef;
 
     @Override
     public int getEntityCode() {
@@ -14,7 +14,12 @@ public class Step extends Entity {
 
     @Override
     public Entity copy() {
-        return null;
+        Step copy = new Step();
+        copy.id = this.id;
+        copy.title = this.title;
+        copy.status = this.status;
+        copy.taskRef = this.taskRef;
+        return copy;
     }
 
     enum Status{

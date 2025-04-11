@@ -103,10 +103,19 @@ public class Database implements Cloneable {
         Database.update(e);
     }
 
+    public static void registerValidator(int entityCode, Validator validator) {
+
+        if (validators.containsKey(entityCode))
+            throw new IllegalArgumentException("Validator for entityCode " + entityCode + " is already registered.");
+        else {
+            validators.put(entityCode, validator);
+        }
+    }
 
 
 
-    //with the clone() method
+
+        //with the clone() method
     /*private static void add(Entity e) throws CloneNotSupportedException{
         if (validators != null) {
             Validator validator = validators.get(e.getEntityCode());
