@@ -1,5 +1,6 @@
 package db;
 import db.exception.EntityNotFoundException;
+import example.Document;
 import example.Human;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Database implements Cloneable {
             throw new AssertionError();
         }
     }
-    public static void callAdd(Human e) throws CloneNotSupportedException {
+    public static void callAdd(Entity e) throws CloneNotSupportedException {
         Database.add(e);
     }
 
