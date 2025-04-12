@@ -19,7 +19,8 @@ public class Main {
         //test code of fifth step
          Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
-        Database.registerValidator(Task.HUMAN_ENTITY_CODE, new TaskValidator());
+
+         Database.registerValidator(Task.HUMAN_ENTITY_CODE, new TaskValidator());
         Database.registerValidator(0, new TaskValidator()); // code 0 for Tasks
         Database.registerValidator(1, new StepValidator()); // code 1 for Steps
 
@@ -32,8 +33,6 @@ public class Main {
                         String title = scanner.nextLine();
                         System.out.print("description: ");
                         String description = scanner.nextLine();
-                        System.out.print("due date (yyyy-mm-dd): ");
-                        
                         System.out.println("Task saved successfully.");
                         break;
                     }
@@ -65,14 +64,10 @@ public class Main {
                         String newTitle = scanner.nextLine();
                         System.out.print("new description: ");
                         String newDescription = scanner.nextLine();
-                        System.out.print("new due date (yyyy-mm-dd): ");
-                        String newDueDate = scanner.nextLine();
 
                         String oldTitle = task.title;
                         task.title = newTitle;
                         task.description = newDescription;
-                        
-
                         Database.callUpdate(task);
 
                         System.out.println("Successfully updated the task.");
@@ -116,13 +111,11 @@ public class Main {
                         System.out.println("status: " + task.status);
                         System.out.println("steps:");
                         for (Entity entity : Database.getAll(0)) {
-                            if (entity instanceof Step) {
                                 Step step = (Step) entity;
                                 if (step.taskRef == task.id) {
                                     System.out.println("    + " + step.title + ":");
                                     System.out.println("ID: " + step.id);
                                     System.out.println("status: " + step.status);
-                                }
                             }
                         }
                         break;
